@@ -9,5 +9,6 @@ Dependencies
 Local Development
 -----------------
 ```
+pip install -r requirements.txt
 python manage.py runserver --settings=uo_db_api.dev_settings
 ```
