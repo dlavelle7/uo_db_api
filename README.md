@@ -4,7 +4,7 @@ REST API for what will be the "uo" android app.
 
 Dependencies
 ------------
-* Python 3.5.2
+* Python 3.6.5
 
 Local Development
 -----------------
