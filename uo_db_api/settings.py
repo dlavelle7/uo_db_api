@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['uo-db-api.herokuapp.com']
 # Application definition
 
 INSTALLED_APPS = [
+    'uo.apps.UoConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
