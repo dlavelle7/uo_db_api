@@ -120,5 +120,11 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# REST API Pagination - Global setting
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100
+}
+
 # Activate Django-Heroku (DATABASE_URL and all that).
 django_heroku.settings(locals())
