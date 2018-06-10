@@ -33,7 +33,17 @@ class TestUsersView(TestCase):
         data = {"username": "test", "password": "testpass"}
         response = self.client.post('/uo/users', data=data)
         self.assertEqual(201, response.status_code)
-        self.assertEqual(data["username"], response.data["username"])
         # Assert token gets auto generated for that user
-        response = self.client.post('/uo/api-token-auth', data=data)
-        # TODO:
+        token_response = self.client.post('/uo/api-token-auth', data=data)
+        self.assertEqual(200, token_response.status_code)
+        self.assertIn("token", token_response.data)
+
+        # Create a second user
+        data = {"username": "test2", "password": "testpass2"}
+        response = self.client.post('/uo/users', data=data)
+        self.assertEqual(201, response.status_code)
+        # Assert a new different token is auto generated
+        token_2_response = self.client.post('/uo/api-token-auth', data=data)
+        self.assertEqual(200, token_2_response.status_code)
+        self.assertNotEqual(token_response.data["token"],
+                            token_2_response.data["token"])
