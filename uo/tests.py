@@ -27,3 +27,13 @@ class TestUsersView(TestCase):
         self.assertEqual(2, response.data["count"])
         self.assertEqual(response.data["results"][1]["username"],
                          data["username"])
+
+    def test_users_token(self):
+        # Create a user via the POST endpoint
+        data = {"username": "test", "password": "testpass"}
+        response = self.client.post('/uo/users', data=data)
+        self.assertEqual(201, response.status_code)
+        self.assertEqual(data["username"], response.data["username"])
+        # Assert token gets auto generated for that user
+        response = self.client.post('/uo/api-token-auth', data=data)
+        # TODO:

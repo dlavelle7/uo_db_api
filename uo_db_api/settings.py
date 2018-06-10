@@ -34,6 +34,7 @@ ALLOWED_HOSTS = ['uo-db-api.herokuapp.com']
 
 INSTALLED_APPS = [
     'rest_framework',
+    'rest_framework.authtoken',
     'uo.apps.UoConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -123,7 +124,10 @@ STATIC_URL = '/static/'
 # REST API Pagination - Global setting
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 100
+    'PAGE_SIZE': 100,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    )
 }
 
 # Activate Django-Heroku (DATABASE_URL and all that).
