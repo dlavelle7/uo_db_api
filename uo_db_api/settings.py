@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '(ue&a*ivm#pnlfve8(@c5cd^5e-2)0dqi&e14ky$iu)e2xddyi'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['uo-db-api.herokuapp.com']
 

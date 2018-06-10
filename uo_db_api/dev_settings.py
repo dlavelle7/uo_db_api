@@ -1,6 +1,7 @@
 from .settings import *
 
 # Overwrite dev settings here . . .
+DEBUG = True
 
 # sqlite db instead of postgres
 DATABASES = {
