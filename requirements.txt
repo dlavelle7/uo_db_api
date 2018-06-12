@@ -1,5 +1,4 @@
-Django==2.0.3
+-r requirements_base.txt
 gunicorn==19.8.1
 psycopg2==2.7.4
 django-heroku==0.3.1
-djangorestframework==3.8.2

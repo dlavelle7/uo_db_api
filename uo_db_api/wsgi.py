@@ -11,6 +11,6 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "uo_db_api.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "uo_db_api.heroku_settings")
 
 application = get_wsgi_application()

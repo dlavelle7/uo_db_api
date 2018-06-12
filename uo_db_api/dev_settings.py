@@ -1,5 +1,7 @@
 from .settings import *
 
+ALLOWED_HOSTS = ['*']
+
 # Overwrite dev settings here . . .
 DEBUG = True
 
