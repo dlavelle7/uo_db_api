@@ -6,31 +6,31 @@ class TestUsersView(TestCase):
     def test_users_view_basic(self):
         # Create a user via the POST endpoint
         data = {"username": "test", "password": "testpass"}
-        response = self.client.post('/uo/users', data=data)
-        self.assertEqual(201, response.status_code)
-        self.assertEqual(data["username"], response.data["username"])
+        create_user_1 = self.client.post('/uo/users', data=data)
+        self.assertEqual(201, create_user_1.status_code)
+        self.assertEqual(data["username"], create_user_1.data["username"])
 
         # Make a GET request to retrieve the new user
-        response = self.client.get('/uo/users')
-        self.assertEqual(1, response.data["count"])
-        self.assertEqual(response.data["results"][0]["username"],
+        get_users = self.client.get('/uo/users')
+        self.assertEqual(1, get_users.data["count"])
+        self.assertEqual(get_users.data["results"][0]["username"],
                          data["username"])
 
         # Create a second user
         data = {"username": "test2", "password": "testpass2"}
-        response = self.client.post('/uo/users', data=data)
-        self.assertEqual(201, response.status_code)
-        self.assertEqual(data["username"], response.data["username"])
+        create_user_2 = self.client.post('/uo/users', data=data)
+        self.assertEqual(201, create_user_2.status_code)
+        self.assertEqual(data["username"], create_user_2.data["username"])
 
         # Test detailed user view GET
-        get_user_2 = self.client.get(f'/uo/users/{response.data["id"]}')
+        get_user_2 = self.client.get(f'/uo/users/{create_user_2.data["id"]}')
         self.assertEqual(200, get_user_2.status_code)
-        self.assertEqual(get_user_2.data, response.data)
+        self.assertEqual(get_user_2.data, create_user_2.data)
 
         # GET users, 2 now returned
-        response = self.client.get('/uo/users')
-        self.assertEqual(2, response.data["count"])
-        self.assertEqual(response.data["results"][1]["username"],
+        get_users = self.client.get('/uo/users')
+        self.assertEqual(2, get_users.data["count"])
+        self.assertEqual(get_users.data["results"][1]["username"],
                          data["username"])
 
     def test_users_token(self):
