@@ -7,11 +7,11 @@ class TestUsersView(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        auth_user = User.objects.create(
+        cls.auth_user = User.objects.create(
             username="lola",
             password="rabbit",
         )
-        cls.auth_headers = f"Token {auth_user.auth_token}"
+        cls.auth_headers = f"Token {cls.auth_user.auth_token}"
 
     def test_users_view(self):
         # Create a user via the POST endpoint, no auth required
@@ -38,6 +38,17 @@ class TestUsersView(TestCase):
         self.assertEqual(3, get_users.data["count"])
         self.assertEqual(get_users.data["results"][-1]["username"],
                          data["username"])
+
+    def test_users_view_permissions(self):
+        # No token, can't access view
+        get_users = self.client.get('/uo/users')
+        self.assertEqual(401, get_users.status_code)
+
+    def test_user_view_permissions(self):
+        # invalid token, can't access view
+        get_user = self.client.get(f'/uo/users/{self.auth_user.id}',
+                                   HTTP_AUTHORIZATION=self.auth_headers + "XX")
+        self.assertEqual(401, get_user.status_code)
 
     def test_obtain_token_view(self):
         # Create a user via the POST endpoint
