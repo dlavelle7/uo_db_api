@@ -22,6 +22,11 @@ class TestUsersView(TestCase):
         self.assertEqual(201, response.status_code)
         self.assertEqual(data["username"], response.data["username"])
 
+        # Test detailed user view GET
+        get_user_2 = self.client.get(f'/uo/users/{response.data["id"]}')
+        self.assertEqual(200, get_user_2.status_code)
+        self.assertEqual(get_user_2.data, response.data)
+
         # GET users, 2 now returned
         response = self.client.get('/uo/users')
         self.assertEqual(2, response.data["count"])

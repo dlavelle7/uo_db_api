@@ -7,3 +7,8 @@ from rest_framework import generics
 class Users(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+class User(generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
