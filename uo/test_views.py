@@ -13,6 +13,17 @@ class TestUsersView(TestCase):
         )
         cls.auth_headers = f"Token {cls.auth_user.auth_token}"
 
+    def test_create_user_returns_token(self):
+        data = {"username": "test", "password": "testpass"}
+        create_user_1 = self.client.post('/uo/users', data=data)
+        self.assertEqual(201, create_user_1.status_code)
+        self.assertEqual(data["username"], create_user_1.data["username"])
+        headers = "Token {0}".format(create_user_1.data["auth_token"])
+        # Assert token can be used to access views
+        get_users = self.client.get('/uo/users',
+                                    HTTP_AUTHORIZATION=headers)
+        self.assertEqual(get_users.status_code, 200)
+
     def test_users_view(self):
         # Create a user via the POST endpoint, no auth required
         data = {"username": "test", "password": "testpass"}
