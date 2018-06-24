@@ -14,7 +14,8 @@ class TestUsersView(TestCase):
         cls.auth_headers = f"Token {cls.auth_user.auth_token}"
 
     def test_create_user_returns_token(self):
-        data = {"username": "test", "password": "testpass"}
+        data = {"username": "test", "password": "testpass",
+                "email": "test@foo.ie"}
         create_user_1 = self.client.post('/uo/users', data=data)
         self.assertEqual(201, create_user_1.status_code)
         self.assertEqual(data["username"], create_user_1.data["username"])
@@ -26,13 +27,16 @@ class TestUsersView(TestCase):
 
     def test_users_view(self):
         # Create a user via the POST endpoint, no auth required
-        data = {"username": "test", "password": "testpass"}
+        data = {"username": "test", "password": "testpass",
+                "email": "test@foo.ie"}
         create_user_1 = self.client.post('/uo/users', data=data)
         self.assertEqual(201, create_user_1.status_code)
         self.assertEqual(data["username"], create_user_1.data["username"])
+        self.assertEqual(data["email"], "test@foo.ie")
 
         # Create a second user
-        data = {"username": "test2", "password": "testpass2"}
+        data = {"username": "test2", "password": "testpass2",
+                "email": "test2@foo.ie"}
         create_user_2 = self.client.post('/uo/users', data=data)
         self.assertEqual(201, create_user_2.status_code)
         self.assertEqual(data["username"], create_user_2.data["username"])
@@ -63,7 +67,8 @@ class TestUsersView(TestCase):
 
     def test_obtain_token_view(self):
         # Create a user via the POST endpoint
-        data = {"username": "test", "password": "testpass"}
+        data = {"username": "test", "password": "testpass",
+                "email": "test@foo.ie"}
         response = self.client.post('/uo/users', data=data)
         self.assertEqual(201, response.status_code)
 
@@ -73,7 +78,8 @@ class TestUsersView(TestCase):
         self.assertIn("token", token_response.data)
 
         # Create a second user
-        data = {"username": "test2", "password": "testpass2"}
+        data = {"username": "test2", "password": "testpass2",
+                "email": "test2@foo.ie"}
         response = self.client.post('/uo/users', data=data)
         self.assertEqual(201, response.status_code)
 
