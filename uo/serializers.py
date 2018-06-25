@@ -8,9 +8,9 @@ class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(required=True, allow_blank=False,
                                      max_length=200)
     email = serializers.EmailField(max_length=254)
-    # FIXME: Password and token should not be here
-    password = serializers.CharField(required=True, allow_blank=False,
-                                     max_length=200)
+    password = serializers.CharField(write_only=True, required=True,
+                                     allow_blank=False, max_length=200)
+    # FIXME: Should token always be returned?
     auth_token = serializers.SlugRelatedField(read_only=True, slug_field='key')
 
     def create(self, validated_data):
