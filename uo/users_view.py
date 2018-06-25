@@ -4,7 +4,6 @@ from uo.permissions import UsersAccessPermission
 
 from rest_framework import generics
 from rest_framework.response import Response
-from rest_framework.decorators import permission_classes
 
 
 class Users(generics.ListCreateAPIView):
@@ -13,7 +12,6 @@ class Users(generics.ListCreateAPIView):
     permission_classes = (UsersAccessPermission,)
 
     def post(self, request):
-        # TODO: Check user exists
         return super().post(request)
 
 
