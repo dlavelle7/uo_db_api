@@ -4,5 +4,6 @@ python:
 install:
   - pip install -r requirements_test.txt
 script:
-  - python manage.py test --settings=uo_db_api.dev_settings
   - pycodestyle uo/
+  - flake8 uo/
+  - python manage.py test --settings=uo_db_api.dev_settings
