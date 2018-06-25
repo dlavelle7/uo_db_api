@@ -13,6 +13,13 @@ class TestUsersView(TestCase):
         )
         cls.auth_headers = f"Token {cls.auth_user.auth_token}"
 
+    def test_create_user_exists(self):
+        data = {"username": self.auth_user.username, "password": "testpass",
+                "email": "test@foo.ie"}
+        response = self.client.post('/uo/users', data=data)
+        self.assertEqual(409, response.status_code)
+        self.assertEqual({"error": "Username already taken."}, response.data)
+
     def test_create_user_returns_token(self):
         data = {"username": "test", "password": "testpass",
                 "email": "test@foo.ie"}
