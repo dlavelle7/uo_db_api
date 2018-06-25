@@ -1,6 +1,6 @@
 from django.urls import path
 
-from uo.health_view import health
+from uo.views import health
 from uo.users_view import UsersView, UserView
 from rest_framework.authtoken import views
 
